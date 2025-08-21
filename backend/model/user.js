@@ -42,17 +42,10 @@ const User = sequelize.define("User", {
     draws: {
         type: DataTypes.INTEGER,
         defaultValue: 0
-    }
+    }, 
 
-}
-// , {
-//     hooks: {
-//         beforeCreate: async (user) => {
-//             user.password = await bcrypt.hash(user.password, 12);
-//         }
-//     }
+    tableName: 'games', 
+    timestamps: true
+    
 
-// }
-);
-
-    console.log('user')
+});

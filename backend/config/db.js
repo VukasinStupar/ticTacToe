@@ -1,5 +1,5 @@
-require("dotenv").config();
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
 const sequelize = new Sequelize(
     process.env.DB_NAME || 'ticTacToe',     
@@ -12,9 +12,5 @@ const sequelize = new Sequelize(
     }
 );
 
-sequelize.authenticate()
-    .then(() => console.log("✅ Connected to PostgreSQL (ticTacToe)"))
-    .catch(err => console.error("❌ Unable to connect:", err));
 
-// module.exports = { sequelize };
 module.exports = sequelize;

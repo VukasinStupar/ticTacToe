@@ -1,65 +1,29 @@
 
 const {User} = require('../model/user');
-const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const userRepository = require('../repository/userRepository');
 const bcrypt = require('bcryptjs');
+const {verifyToken, generateToken} = require('./authService');
+const {AuthenticationError, ValidationError, NotFoundError} = require('./errorService');
 
-const JWT_CONFIG = {
-  secret: process.env.JWT_SECRET || 'your_jwt_secret',
-  expiresIn: process.env.JWT_EXPIRES_IN || '7d'
-};
-
-class AuthenticationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'AuthenticationError';
-  }
-}
-
-class ValidationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
-
-class NotFoundError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'NotFoundError';
-  }
-}
-
-const generateToken = (user) => {
-  return jwt.sign(
-    { 
-      id: user.id, 
-      username: user.username 
-    },
-    JWT_CONFIG.secret,
-    { expiresIn: JWT_CONFIG.expiresIn }
-  );
-};
-
-const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, JWT_CONFIG.secret);
-  } catch (error) {
-    throw new AuthenticationError('Invalid or expired token');
-  }
-};
+const SALT_ROUNDS = 12;
 
 const register = async (userData) => {
   try {
-    const existingUser = await userRepository.findUserByEmail(userData.email);
+    const existingUserByEmail = await userRepository.findUserByEmail(userData.email);
 
-    if (existingUser) {
+    if (existingUserByEmail) {
       throw new ValidationError('User already exists with this email');
+    }
+
+    const existingUserName = await userRepository.findUserByUserName(credentials.username);
+    
+    if (existingUserName) {
+      throw new AuthenticationError('User already exists with this username');
     }
     
 
-    const hashedPassword = await bcrypt.hash(userData.password, 12);
+    const hashedPassword = await bcrypt.hash(userData.password, SALT_ROUNDS);
 
     const user = await userRepository.createUser({
       username: userData.username,
@@ -151,12 +115,5 @@ module.exports = {
   register,
   login,
   getUserById,
-  generateToken,
-  verifyToken,
-  AuthenticationError,
-  ValidationError,
-  NotFoundError,
   findUserByUserName,
 };
-
-console.log('service')

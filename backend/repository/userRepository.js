@@ -28,15 +28,6 @@ const findUserByUserName = async (username) => {
     return user;
 };
 
-async function validatePassword(password) {
-    const query = `SELECT * FROM "user" WHERE password = :password`;
-    const [user] = await sequelize.query(query, {
-        replacements: { password },
-        type: QueryTypes.SELECT
-    });
-    return user;
-}
-
 async function createUser({ username, email, password }) {
     const query = `
   INSERT INTO "user" (username, email, password, "createdAt", "updatedAt")
@@ -55,5 +46,4 @@ module.exports = {
     findUserByEmail,
     createUser,
     findUserByUserName,
-    validatePassword,
 };
