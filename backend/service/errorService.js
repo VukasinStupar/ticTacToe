@@ -19,7 +19,7 @@ class NotFoundError extends Error {
   }
 }
 
-module.export = {
+module.exports = {
     AuthenticationError,
     ValidationError,
     NotFoundError,

@@ -8,35 +8,33 @@ const {AuthenticationError, ValidationError, NotFoundError} = require('./errorSe
 
 const SALT_ROUNDS = 12;
 
-const register = async (userData) => {
+const register = async ({ username, email, password }) => {
   try {
-    const existingUserByEmail = await userRepository.findUserByEmail(userData.email);
 
+    const existingUserByEmail = await userRepository.findUserByEmail(email);
     if (existingUserByEmail) {
       throw new ValidationError('User already exists with this email');
     }
 
-    const existingUserName = await userRepository.findUserByUserName(credentials.username);
-    
+    const existingUserName = await userRepository.findUserByUserName(username);
     if (existingUserName) {
       throw new AuthenticationError('User already exists with this username');
     }
     
 
-    const hashedPassword = await bcrypt.hash(userData.password, SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
 
     const user = await userRepository.createUser({
-      username: userData.username,
-      email: userData.email,
+      username: username,
+      email: email,
       password: hashedPassword, 
     });
 
-    const userResponse = { ...user };
-    delete userResponse.password;
-
+    delete user.password;
     
+    return user;
 
-    return { user: userResponse, token };
   } catch (error) {
     if (error.name === 'ValidationError') {
       throw error;
@@ -63,13 +61,14 @@ const login = async (credentials) => {
       throw new AuthenticationError('Invalid credentials');
     }
 
-    const userResponse = user;
-    delete userResponse.password;
+    delete user.password;
 
     const token = generateToken(user);
     
 
-    return { user: userResponse, token };
+    // return { user: userResponse, token };
+    return user;
+    
   } catch (error) {
     if (error.name === 'AuthenticationError' || error.name === 'ValidationError') {
       throw error;
