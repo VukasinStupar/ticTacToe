@@ -1,3 +1,4 @@
+
 const playGameMultiplayerService = require('../service/playGameMultiplayerService');
 const { getIO } = require('../socket');
 
@@ -7,27 +8,16 @@ const makeMoveUser = async (req, res) => {
     const { boardIndex } = req.body;
     const userId = req.user.id;
 
-    const gid = gameId;
-    const idx = boardIndex;
-    
-   
-  
-
     const result = await playGameMultiplayerService.makeMove({
-      gameId: gid,
+      gameId: Number(gameId),
       userId,
-      boardIndex: idx
+      boardIndex: Number(boardIndex)
     });
-    console.log("move..",result);
 
     const io = getIO();
-    io.to(`game_${gid}`).emit('updateGame', {
-      gameId: gid,
-      board: result.board,
-      move: result.move,
-      winnerId: result.winnerId,
-      nextTurnUserId: result.nextTurnUserId,
-      isBoardFull: result.isBoardFull
+    io.to(`game_${gameId}`).emit('updateGame', {
+      gameId,
+      ...result
     });
 
     return res.status(200).json({
@@ -48,11 +38,9 @@ const makeMoveUser = async (req, res) => {
 const getGameState = async (req, res) => {
   try {
     const { gameId } = req.params;
-    const gid = gameId;
-    
 
-    const state = await playGameMultiplayerService.getGameState(gid);
-    console.log("stanje..",state);
+    const state = await playGameMultiplayerService.getGameState(Number(gameId));
+    console.log("Game state:", state);
 
     return res.status(200).json({
       success: true,
@@ -68,13 +56,11 @@ const getGameState = async (req, res) => {
 const resetGame = async (req, res) => {
   try {
     const { gameId } = req.params;
-    const gid = gameId;
-    
 
-    const result = await playGameMultiplayerService.resetGame(gid);
+    const result = await playGameMultiplayerService.resetGame(Number(gameId));
 
     const io = getIO();
-    io.to(`game_${gid}`).emit('gameReset', { gameId: gid });
+    io.to(`game_${gameId}`).emit('gameReset', { gameId, board: result.board });
 
     return res.status(200).json({
       success: true,
@@ -91,14 +77,12 @@ const joinExistingGame = async (req, res) => {
   try {
     const { gameId } = req.params;
     const userId = req.user.id;
-    const gid = gameId;
-    
 
-    await playGameMultiplayerService.joinGame({ gameId: gid, userId });
+    await playGameMultiplayerService.joinGame({ gameId: Number(gameId), userId });
 
     const io = getIO();
-    io.to(`game_${gid}`).emit('playerJoined', { 
-      gameId: gid, 
+    io.to(`game_${gameId}`).emit('playerJoined', { 
+      gameId: Number(gameId), 
       opponentId: userId,
       opponentJoined: true
     });

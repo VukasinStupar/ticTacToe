@@ -9,13 +9,20 @@
 // function getUserIdFromToken() {
 //   try {
 //     const token = localStorage.getItem("token");
-    
 //     if (!token) return null;
 //     const payload = JSON.parse(atob(token.split(".")[1]));
 //     return payload?.id || null;
 //   } catch {
 //     return null;
 //   }
+// }
+
+// function normalizeBoard(board) {
+//   return board?.map(cell => cell ?? "") ?? new Array(9).fill("");
+// }
+
+// function normData(res) {
+//   return res.data;
 // }
 
 // const PlayGameMultiplayer = ({ gameId }) => {
@@ -27,15 +34,14 @@
 //   const socketRef = useRef(null);
 //   const currentUserId = getUserIdFromToken();
 
-//   // const normData = (res) => res?.data?.data ?? res?.data;
-//   const normData = (res) => res?.data ?? {};
 //   useEffect(() => {
 //     async function fetchStatus() {
 //       try {
 //         setLoading(true);
 //         const res = await getGameStatusMP(gameId);
-//         const data = normData(res);
-//         setBoard(data?.board?.map(cell => cell ?? "") ?? new Array(9).fill(""));
+//         console.log("sta dobijamo...", res);
+//         const data = res.data;
+//         setBoard(normalizeBoard(data.board));
 //         setWinner(data?.winnerId ?? null);
 //         setNextTurnUserId(data?.nextTurnUserId ?? null);
 //       } catch (err) {
@@ -48,14 +54,17 @@
 //   }, [gameId]);
 
 //   useEffect(() => {
-//     socketRef.current = io(SOCKET_URL, { auth: { token: localStorage.getItem("token") } });
+//     if (!socketRef.current) {
+//       socketRef.current = io(SOCKET_URL, { auth: { token: localStorage.getItem("token") } });
+//     }
+    
 //     const socket = socketRef.current;
 
 //     socket.emit("joinGame", gameId);
 
 //     socket.on("updateGame", (payload) => {
 //       if (Number(payload.gameId) !== Number(gameId)) return;
-//       setBoard(payload.board?.map(cell => cell ?? "") ?? new Array(9).fill(""));
+//       setBoard(normalizeBoard(payload.board));
 //       setWinner(payload.winner ?? null);
 //       setNextTurnUserId(payload.nextTurnUserId ?? null);
 //     });
@@ -69,7 +78,7 @@
 
 //     return () => {
 //       socket.emit("leaveGame", gameId);
-//       socket.disconnect();
+      
 //     };
 //   }, [gameId]);
 
@@ -79,8 +88,9 @@
 //     try {
 //       setLoading(true);
 //       const res = await handlePlayerMoveMP(gameId, index);
+//       console.log("move", res);
 //       const data = normData(res);
-//       setBoard(data?.board?.map(cell => cell ?? "") ?? new Array(9).fill(""));
+//       setBoard(normalizeBoard(data?.board));
 //       setWinner(data?.winnerId ?? null);
 //       setNextTurnUserId(data?.nextTurnUserId ?? null);
 //     } catch (err) {
@@ -96,9 +106,9 @@
 //       setLoading(true);
 //       const res = await resetGameMP(gameId);
 //       const data = normData(res);
-//       setBoard(data?.board?.map(cell => cell ?? "") ?? new Array(9).fill(""));
+//       setBoard(normalizeBoard(data?.board));
 //       setWinner(data?.winnerId ?? null);
-//       setNextTurnUserId(null);
+//       setNextTurnUserId(data?.nextTurnUserId ?? null);
 //     } catch (err) {
 //       console.error(err);
 //     } finally {
@@ -127,13 +137,23 @@
 //       {winner && (
 //         <div className="winner mt-4 text-center">
 //           <p className="text-green-500 font-semibold">Winner: {winner}</p>
-//           <button className="reset-button mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleReset} disabled={loading}>Restart Game</button>
+//           <button
+//             className="reset-button mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+//             onClick={handleReset}
+//             disabled={loading}
+//           >
+//             Restart Game
+//           </button>
 //         </div>
 //       )}
 
 //       {!winner && (
 //         <p className="text-center mt-4 text-sm">
-//           {nextTurnUserId === null ? "Waiting for opponent..." : nextTurnUserId === currentUserId ? "Your turn" : "Opponent's turn"}
+//           {nextTurnUserId === null
+//             ? "Waiting for opponent..."
+//             : nextTurnUserId === currentUserId
+//             ? "Your turn"
+//             : "Opponent's turn"}
 //         </p>
 //       )}
 //     </div>
@@ -141,8 +161,6 @@
 // };
 
 // export default PlayGameMultiplayer;
-
-
 import React, { useState, useEffect, useRef } from "react";
 import { handlePlayerMoveMP, getGameStatusMP, resetGameMP } from "../services/playGameMultiplayerService";
 import io from "socket.io-client";
@@ -161,14 +179,16 @@ function getUserIdFromToken() {
   }
 }
 
-const normData = (res) => res?.data ?? {};
-const normalizeBoard = (board) => board?.map(cell => cell ?? "") ?? new Array(9).fill("");
+function normalizeBoard(board) {
+  return board?.map(cell => cell ?? "") ?? new Array(9).fill("");
+}
 
 const PlayGameMultiplayer = ({ gameId }) => {
   const [board, setBoard] = useState(new Array(9).fill(""));
   const [winner, setWinner] = useState(null);
   const [loading, setLoading] = useState(false);
   const [nextTurnUserId, setNextTurnUserId] = useState(null);
+  const [currentPlayerSign, setCurrentPlayerSign] = useState(null);
 
   const socketRef = useRef(null);
   const currentUserId = getUserIdFromToken();
@@ -178,10 +198,24 @@ const PlayGameMultiplayer = ({ gameId }) => {
       try {
         setLoading(true);
         const res = await getGameStatusMP(gameId);
-        const data = normData(res);
-        setBoard(normalizeBoard(data?.board));
+        console.log("Game status:", res);
+        const data = res.data;
+        setBoard(normalizeBoard(data.board));
         setWinner(data?.winnerId ?? null);
         setNextTurnUserId(data?.nextTurnUserId ?? null);
+        
+        // Determine current player's sign based on moves
+        if (data.moves && data.moves.length > 0) {
+          const myMove = data.moves.find(move => move.who_played === currentUserId);
+          if (myMove) {
+            setCurrentPlayerSign(myMove.sign);
+          } else {
+            // If no moves yet, assign sign based on player order
+            setCurrentPlayerSign(data.moves.length % 2 === 0 ? "X" : "O");
+          }
+        } else {
+          setCurrentPlayerSign("X"); // First player gets X
+        }
       } catch (err) {
         console.error(err);
       } finally {
@@ -189,18 +223,22 @@ const PlayGameMultiplayer = ({ gameId }) => {
       }
     }
     fetchStatus();
-  }, [gameId]);
+  }, [gameId, currentUserId]);
 
   useEffect(() => {
-    socketRef.current = io(SOCKET_URL, { auth: { token: localStorage.getItem("token") } });
+    if (!socketRef.current) {
+      socketRef.current = io(SOCKET_URL, { auth: { token: localStorage.getItem("token") } });
+    }
+    
     const socket = socketRef.current;
 
     socket.emit("joinGame", gameId);
 
     socket.on("updateGame", (payload) => {
       if (Number(payload.gameId) !== Number(gameId)) return;
+      console.log("Socket update:", payload);
       setBoard(normalizeBoard(payload.board));
-      setWinner(payload.winner ?? null);
+      setWinner(payload.winnerId ?? null);
       setNextTurnUserId(payload.nextTurnUserId ?? null);
     });
 
@@ -209,26 +247,28 @@ const PlayGameMultiplayer = ({ gameId }) => {
       setBoard(new Array(9).fill(""));
       setWinner(null);
       setNextTurnUserId(null);
+      setCurrentPlayerSign("X");
     });
 
     return () => {
       socket.emit("leaveGame", gameId);
-      socket.disconnect();
     };
   }, [gameId]);
 
   const handleMove = async (index) => {
-    if (board[index] !== "" || winner || nextTurnUserId !== currentUserId) return;
+    if (board[index] !== "" || winner || loading) return;
 
     try {
       setLoading(true);
       const res = await handlePlayerMoveMP(gameId, index);
-      const data = normData(res);
-      setBoard(normalizeBoard(data?.board));
-      setWinner(data?.winnerId ?? null);
-      setNextTurnUserId(data?.nextTurnUserId ?? null);
+      console.log("Move response:", res);
+      
+      // Update state based on response
+      setBoard(normalizeBoard(res.data.board));
+      setWinner(res.data.winnerId ?? null);
+      setNextTurnUserId(res.data.nextTurnUserId ?? null);
     } catch (err) {
-      console.error(err);
+      console.error("Move error:", err);
       alert(err?.response?.data?.message || err.message);
     } finally {
       setLoading(false);
@@ -239,15 +279,21 @@ const PlayGameMultiplayer = ({ gameId }) => {
     try {
       setLoading(true);
       const res = await resetGameMP(gameId);
-      const data = normData(res);
-      setBoard(normalizeBoard(data?.board));
-      setWinner(data?.winnerId ?? null);
-      setNextTurnUserId(null);
+      setBoard(normalizeBoard(res.data.board));
+      setWinner(res.data.winnerId ?? null);
+      setNextTurnUserId(res.data.nextTurnUserId ?? null);
+      setCurrentPlayerSign("X");
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const isMyTurn = () => {
+    if (winner) return false;
+    if (nextTurnUserId === null) return true; 
+    return nextTurnUserId === currentUserId;
   };
 
   return (
@@ -261,7 +307,7 @@ const PlayGameMultiplayer = ({ gameId }) => {
             key={index}
             className="cell border-2 border-gray-400 text-2xl font-bold h-16 w-16 flex items-center justify-center"
             onClick={() => handleMove(index)}
-            disabled={cell !== "" || !!winner || nextTurnUserId !== currentUserId}
+            disabled={cell !== "" || !!winner || !isMyTurn() || loading}
           >
             {cell}
           </button>
@@ -270,7 +316,9 @@ const PlayGameMultiplayer = ({ gameId }) => {
 
       {winner && (
         <div className="winner mt-4 text-center">
-          <p className="text-green-500 font-semibold">Winner: {winner}</p>
+          <p className="text-green-500 font-semibold">
+            {winner === "draw" ? "It's a draw!" : `Winner: ${winner}`}
+          </p>
           <button
             className="reset-button mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={handleReset}
@@ -283,11 +331,8 @@ const PlayGameMultiplayer = ({ gameId }) => {
 
       {!winner && (
         <p className="text-center mt-4 text-sm">
-          {nextTurnUserId === null
-            ? "Waiting for opponent..."
-            : nextTurnUserId === currentUserId
-            ? "Your turn"
-            : "Opponent's turn"}
+          {isMyTurn() ? "Your turn" : "Opponent's turn"}
+          {currentPlayerSign && ` (You are: ${currentPlayerSign})`}
         </p>
       )}
     </div>
