@@ -1,0 +1,138 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #1a202c, #2d3748); 
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.7), 0 0 25px rgba(0, 255, 255, 0.5); 
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.cell {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cell:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 128, 0.3); 
+}
+
+.cell.X {
+  color: #00ff99;
+  text-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99; 
+}
+
+.cell.O {
+  color: #ff4d6d;
+  text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d; 
+}
+
+.winner {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.reset-button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00ff99, #ff4d6d);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+button {
+  background: linear-gradient(90deg, #38b2ac, #68d391); 
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #48bb78, #81e6d9); 
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.mb-4 {
+  font-size: 1rem;
+  color: #e2e8f0;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .p-6 {
+    padding: 15px;
+  }
+
+  .board {
+    grid-template-columns: repeat(3, 80px); 
+    grid-template-rows: repeat(3, 80px);
+    gap: 10px;
+  }
+
+  .cell {
+    font-size: 2.5rem;
+  }
+
+  button {
+    font-size: 1rem; 
+  }
+}

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const AuthenticationError = require('./errorService');
+const AuthenticationError = require('../middleware/errorMiddleware');
+
 
 const JWT_CONFIG = {
   secret: process.env.JWT_SECRET || 'your_jwt_secret',

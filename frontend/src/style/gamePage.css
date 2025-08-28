@@ -1,0 +1,83 @@
+.all-games-container {
+  background: linear-gradient(135deg, #1a202c, #2d3748);
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  color: #f7fafc;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid #4caf50;
+}
+
+h1 {
+  color: #8bc34a;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(139, 195, 74, 0.7);
+}
+
+p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #edf2f7;
+}
+
+.error {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.games-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.games-table th, .games-table td {
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.games-table th {
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+  color: #f7fafc;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.games-table td {
+  background-color: #1a202c;
+  color: #f7fafc;
+  border-bottom: 1px solid #4caf50;
+}
+
+.games-table tr:hover {
+  background: rgba(139, 195, 74, 0.2);
+  transform: scale(1.02);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.no-games {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #8bc34a;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .games-table th, .games-table td {
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}

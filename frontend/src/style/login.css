@@ -1,0 +1,86 @@
+.p-6 {
+  background: linear-gradient(135deg, #2a3d48, #1e293b);
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  padding: 3rem;
+  color: #f7fafc;
+  font-family: 'Roboto', sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+h1 {
+  color: #8bc34a;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(139, 195, 74, 0.7);
+  margin-bottom: 2rem;
+}
+
+p {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.text-green-400 {
+  color: #66bb6a;
+}
+
+.text-red-400 {
+  color: #f44336;
+}
+
+input {
+  background: #1a202c;
+  border: 2px solid #4caf50;
+  padding: 12px;
+  border-radius: 8px;
+  color: #f7fafc;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #8bc34a;
+  box-shadow: 0 0 10px rgba(139, 195, 74, 0.6);
+  outline: none;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #66bb6a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(2px);
+  background-color: #388e3c;
+}
+
+@media (max-width: 768px) {
+  .p-6 {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}

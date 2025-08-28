@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const userRepository = require('../repository/userRepository');
 const bcrypt = require('bcryptjs');
 const {verifyToken, generateToken} = require('./authService');
-const {AuthenticationError, ValidationError, NotFoundError} = require('./errorService');
+const {AuthenticationError, ValidationError, NotFoundError} = require('../middleware/errorMiddleware');
 
 const SALT_ROUNDS = 12;
 
@@ -66,8 +66,7 @@ const login = async (credentials) => {
     const token = generateToken(user);
     
 
-    // return { user: userResponse, token };
-    return user;
+    return {user, token};
     
   } catch (error) {
     if (error.name === 'AuthenticationError' || error.name === 'ValidationError') {
@@ -115,4 +114,5 @@ module.exports = {
   login,
   getUserById,
   findUserByUserName,
+  verifyToken ,
 };

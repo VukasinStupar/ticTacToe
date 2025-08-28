@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #121a24, #1a202c); 
+  color: #e2e8f0; 
+  transition: background 0.3s ease-in-out;
+}
+
+body:hover {
+  background: linear-gradient(135deg, #1a202c, #2d3748);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  color: #00ff99;
+  background-color: rgba(0, 0, 0, 0.8); 
+  padding: 4px 6px;
+  border-radius: 6px;
+  text-shadow: 0 0 5px rgba(0, 255, 99, 0.8); 
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+code:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 0 15px rgba(0, 255, 99, 1); 
+}
+
+code.glowing {
+  text-shadow: 0 0 10px rgba(0, 255, 99, 0.9), 0 0 20px rgba(0, 255, 99, 0.8);
+}
+
+a {
+  text-decoration: none;
+  color: #61dafb;
+  transition: 0.3s;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.8); 
+}
+
+a:hover {
+  color: #fff;
+  background: linear-gradient(90deg, rgba(0, 255, 255, 1), rgba(255, 0, 0, 1));
+  text-shadow: 0 0 30px rgba(0, 255, 255, 1), 0 0 50px rgba(0, 255, 0, 1); 
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem; 
+  }
+
+  code {
+    font-size: 0.9rem; 
+  }
+}
