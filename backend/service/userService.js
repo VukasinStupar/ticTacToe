@@ -4,6 +4,7 @@ const { Op } = require('sequelize');
 const userRepository = require('../repository/userRepository');
 const bcrypt = require('bcryptjs');
 const {verifyToken, generateToken} = require('./authService');
+// isti komentar kao i auth servisu, izvuci definicije errora u poseban fajl
 const {AuthenticationError, ValidationError, NotFoundError} = require('../middleware/errorMiddleware');
 
 const SALT_ROUNDS = 12;
@@ -47,6 +48,7 @@ const login = async (credentials) => {
   try {
     const { username, password } = credentials;
 
+    // Ovu proveru vec radis u validateLogin middleware-u tako da nema potrebe raditi to i u servisu
     if (!username || !password) {
       throw new ValidationError('Username and password are required');
     }

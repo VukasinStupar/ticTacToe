@@ -58,6 +58,7 @@ const joinGame = async (gameId, userId) => {
 };
 
 const getOpenGames = async () => {
+  // Umesto kucanja stringa 'MULTI_PLAYER' svuda gde se koristi typeOfPlay bil bi bolje definisati enum na jednom mestu i onda svuda koristiti taj enum
   const query = `
     SELECT *
     FROM "game"

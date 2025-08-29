@@ -27,6 +27,8 @@ const JoinGameList = () => {
   }, []);
 
   const handleJoin = (gameId) => {
+    // ovakvu informaciju ne bih cuvao u localStorage (osim ako nije potrebno da ostane sacuvana i nakon reloada browsera ili je potrebno omoguciti korisniku da moze zatvoriti browser i vratiti se u nekom kasnijem trenutku i nastaviti sa igramnjem igre)
+    // bez obzira na prethodnu odluku, trebalo bi makar wrapovati koriscenje gameId sa useContextom (ukoliko je podatak potreban i komponentama koje nisu child componente ove komponente) ili samo cuvati u useStateu lokalno i proslediti kao prop u child komponente (moze se i proslediti kao route param)
     localStorage.setItem("joinGameId", gameId);
     navigate("/multiPlayerStartBoard");
   };

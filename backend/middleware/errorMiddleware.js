@@ -1,3 +1,5 @@
+// trebalo bi dodati ovaj middleware na sve rute, ne samo userRoutes
+// tipovi errora nisu importovani, gde se nalazi njihova definicija?
 const errorMiddleware = (err, req, res, next) => {
   console.error(err); 
 

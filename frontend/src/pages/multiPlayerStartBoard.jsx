@@ -3,6 +3,7 @@ import { getGameStatusMP, handlePlayerMoveMP } from "../services/playGameMultipl
 import "../style/playGame.css";
 
 const MultiPlayerStartBoard = () => {
+  // ako se samo ovde koristi joinGameId, mislim da bi najbolje resenje bilo da se prosledi kao route param iz prethodne komponente / sa prethodne stranice
   const gameId = localStorage.getItem("joinGameId");
   console.log('id igre iz localstorage:', gameId);
 

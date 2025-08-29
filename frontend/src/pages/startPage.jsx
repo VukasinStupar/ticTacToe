@@ -14,6 +14,8 @@ const StartPage = () => {
     navigate("/login"); 
   };
 
+  // Vidim da si koristio tailwind (mada koliko vidim nije zapravo setup-ovan u projektu) a u isto vreme koristis i .css fajlvoe
+  // Oba su skroz validna i cesto koriscena, bilo bi dobro odluciti se za jednu opciju i drzati se nje kroz ceo projekat
   return (
     <div className="p-6 max-w-md mx-auto bg-gray-900 text-white rounded-xl shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Welcome</h1>

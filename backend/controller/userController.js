@@ -10,6 +10,9 @@ const register = async (req, res) => {
       data: { user }
     });
   } catch (error) {
+    // Najbolje je ostaviti knotrolere jednostavnim i kratkim, ova logika bi idealno bila u error middleware-u koji bi hvatao sve errore u aplikaciji.
+    // Time na jednom mestu biras kako ces obraditi errore, i ako kasnije dodje do izmena potrebno je izmeniti samo na jednom mestu
+    // Vazi za sve kontrolere, necu pisati svuda
     const statusCode = error.name === 'ValidationError' ? 400 : 500;
 
     res.status(statusCode).json({

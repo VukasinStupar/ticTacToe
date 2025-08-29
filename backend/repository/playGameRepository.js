@@ -1,6 +1,7 @@
 const sequelize = require("../config/db");
 const { QueryTypes } = require("sequelize");
 
+// Postoji funkcija u gameRepository (gde bi i trebala da bude), mislim da je najbolje obrisati ovde i svuda koristiti gameRepository funkciju
 const getGameById = async (gameId) => {
   const query = `
     SELECT *
@@ -41,6 +42,7 @@ const createMove = async ({ game_id, who_played, board_index, sign, date_time })
   return move;
 };
 
+// I ova funkcija postoji u gameRepository
 const updateGameWinner = async (gameId, winner) => {
   const query = `
     UPDATE "game"

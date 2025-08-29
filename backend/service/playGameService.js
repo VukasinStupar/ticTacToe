@@ -14,6 +14,8 @@ function checkWinner(board) {
   if (board.every(cell => cell)) return "draw";
   return null;
 }
+
+// Ova funkcija definitivno radi previse stvari i teska je za ispratiti, bilo bi dobro izanalizirati i pokusati izvuci nekoliko pomocnih funkcija koje bi se koristile
 const makeMoveUser = async (gameId, userId, position, io) => {
   const game = await playGameRepo.getGameById(gameId);
   if (!game) throw new Error("Game not found");

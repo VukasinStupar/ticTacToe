@@ -12,6 +12,7 @@ const CreateNewGame = () => {
   const [latestId, setLatestId] = useState(null);
   const navigate = useNavigate();
 
+  // ne vidim poentu u ovom useEffectu, mogao si samo proslediti ovu datetime vrednosti pri definisanju useState varijable
   useEffect(() => {
     setNewGame(prev => ({ ...prev, datetime: new Date().toISOString() }));
   }, []);
@@ -40,6 +41,7 @@ const CreateNewGame = () => {
         <strong>Type of Play:</strong>
         <div className="flex space-x-4 mt-2">
           <label>
+            {/* Najbolje je u htmlu ostaviti samo display logiku, onChange funkcije bi mogao lokalno definisati iznad return bloka*/}
             <input type="radio" name="typeOfPlay" value="SINGLE_PLAYER" checked={newGame.typeOfPlay === "SINGLE_PLAYER"} onChange={(e) => { setNewGame({ ...newGame, typeOfPlay: e.target.value }); setGameSaved(false); }} /> Single Player
           </label>
           <label>

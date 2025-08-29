@@ -43,6 +43,7 @@ const buildBoardFromMoves = (moves) => {
   return board;
 };
 
+// Dugacka funkcija, verovatno radi previse i ne bi bilo lose refaktorisati
 const getGameState = async (gameId) => {
   const moves = await movesRepository.getMovesByGameId(gameId);
   const board = buildBoardFromMoves(moves);
@@ -89,6 +90,7 @@ const getGameState = async (gameId) => {
   };
 };
 
+// Dugacka funkcija, verovatno radi previse i ne bi bilo lose refaktorisati
 const makeMove = async ({ gameId, userId, boardIndex }) => {
   const moves = await movesRepository.getMovesByGameId(gameId);
   const lastMove = await movesRepository.getLastMove(gameId);

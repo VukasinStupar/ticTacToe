@@ -28,6 +28,7 @@ const Game = sequelize.define("Game", {
         type: DataTypes.ENUM("X", "O", "draw"),
         allowNull: true
     },
+    // Ovde je isto cuvanje redundatnih podataka (informacija se moze pronaci u playGame tabeli), malo detaljnije napisano u user.js model fajlu
     currentTurn: { 
         type: DataTypes.INTEGER, 
         allowNull: true

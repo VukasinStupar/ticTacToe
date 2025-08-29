@@ -150,6 +150,7 @@ import "../style/playGame.css";
 
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || window.location.origin;
 
+// ovakvu funkciju bi bilo bolje staviti u pomocni util fajl, kako projekat raste postoji solidna sansa da ce ti biti potrebno na vise razlicitih mesta
 function getUserIdFromToken() {
   try {
     const token = localStorage.getItem("token");

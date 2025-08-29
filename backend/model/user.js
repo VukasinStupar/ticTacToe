@@ -31,6 +31,8 @@ const User = sequelize.define("User", {
             isEmail: true
         }
     },
+    // Ako zelis istrazi termin redundatnih podataka. Cuvanje wins, losses i draws podatak ovde je donekle duplikat informacija u bazi jer te informacije za user uvek mozes izvuci relativno jednostavnim sql upitom nad game tabelom
+    // To ne znaci da je ovo nuzno pogresno, nekada je ovo dobar izbor. Samo treba biti svestan prednosti i mana oba pristupa.
     wins: {
         type: DataTypes.INTEGER,
         defaultValue: 0

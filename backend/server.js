@@ -17,6 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Uglavnom je najbolje staviti sve importe na vrh fajla
 const userRoutes = require("./routes/userRoutes");
 const gameRoutes = require("./routes/gameRoutes");
 const playGameRoutes = require("./routes/playGameRoutes");

@@ -7,6 +7,8 @@ const GameService = {
       const game = await gameRepository.createGame({ userId, typeOfPlay });
       return game;
     } catch (error) {
+      // Generalno ukoliko ces u catch bloku samo opet baciti error onda nema potrebe ni da ga hvatas na prvom mestu. Isto vazi za sve funkcije u ovom fajlu.
+      // U servisima mozes hvatati neke/proveravati neke ocekivane errore kako bi vratio precizniji odgovor korisniku. Za sve ostale je okej pustiti da se samo dese, ukoliko je error middleware dobro podesen i znas da ce se tamo handle-ovati.
       throw new Error(error.message);
     }
   },

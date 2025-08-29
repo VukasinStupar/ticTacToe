@@ -1,6 +1,8 @@
 const playGameMultiplayerService = require('../service/playGameMultiplayerService');
 const { getIO } = require('../socket');
 
+// Mozes istraziti prettier i eslint, to su alati koji uvode i automatski proveravaju i odrzavaju odredjena pravila pisanja i formatiranja koda.
+// Korisni su za uvodjenje standarda i stila pisanja koda, kako bi svi fajlovi bili isto formatirani. To omogucava lakse snalazanje u projektu i citljivost koda.
 const makeMoveUser = async (req, res) => {
   try {
     const { gameId } = req.params;
