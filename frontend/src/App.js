@@ -48,6 +48,7 @@ import StartPage from './pages/startPage';
 import PlayGame from './pages/PlayGame';
 import JoinGameList from './pages/joinGameList';
 import PlayGameMultiplayer from './pages/PlayGameMultiplayer';
+import TestSocket from './pages/TestSocket';
 
 function App() {
   return (
@@ -62,6 +63,9 @@ function App() {
         <Route path="/joinGameList" element={<JoinGameList />} />
         <Route path="/multiPlayerStartBoard" element={<PlayGameMultiplayer gameId={localStorage.getItem("joinGameId")} />} />
         <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+
+        <Route path="/testSocket" element={<TestSocket/>} />
+
       </Routes>
     </Router>
   );

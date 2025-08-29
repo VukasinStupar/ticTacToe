@@ -1,21 +1,14 @@
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { createServer } = require("http");
 const sequelize = require("./config/db");
-const { initSocket } = require('./socket');
-
-
+const { initSocket } = require("./socket");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-
-app.use((req, res, next) => {
-  const now = Date.now();
-  const windowStart = now - 60000;
-  next();
-});
 
 const userRoutes = require("./routes/userRoutes");
 const gameRoutes = require("./routes/gameRoutes");
@@ -42,10 +35,10 @@ initSocket(server);
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully');
+process.on("SIGTERM", () => {
+  console.log("SIGTERM received, shutting down gracefully");
   server.close(() => {
-    console.log('Process terminated');
+    console.log("Process terminated");
   });
 });
 

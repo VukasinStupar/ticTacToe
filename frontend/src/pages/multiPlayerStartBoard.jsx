@@ -43,6 +43,7 @@ const MultiPlayerStartBoard = () => {
       const result = await handlePlayerMoveMP(gameId, index);
       setBoard(result?.data?.board?.map(cell => cell ?? "") ?? board);
       setWinner(result?.data?.winner ?? null);
+      console.log("red", result);
       setCurrentTurn(result?.data?.currentTurn ?? null);
     } catch (err) {
       console.error("Move error:", err);
