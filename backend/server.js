@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 const userRoutes = require('./routes/userRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 
@@ -31,6 +32,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use(errorMiddleware);
+
 
 sequelize
   .sync({ force: false })

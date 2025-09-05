@@ -13,3 +13,4 @@ export async function loginUser(data) {
 export async function getUserById(id) {
   return request(`/users/userRoutes/${id}`, {}, HttpMethod.GET);
 }
+//

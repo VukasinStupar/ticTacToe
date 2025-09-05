@@ -50,6 +50,7 @@ export default defineConfig([
     language: 'json/json5',
     extends: ['json/recommended'],
   },
+  
 
   // Markdown
   {

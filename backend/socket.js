@@ -8,6 +8,7 @@ let nextId = 1;
 
 function initSocket(server) {
   if (wss) return wss;
+  
 
   wss = new WebSocketServer({ noServer: true });
 
