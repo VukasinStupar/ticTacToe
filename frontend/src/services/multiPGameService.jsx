@@ -12,6 +12,7 @@ export async function getOpenGames() {
   return request(`/multiplayergame/open`, {}, HttpMethod.GET);
 }
 
+
 export async function join(game_id) {
   return request(`${BASE_URL}/${game_id}/join`, {}, HttpMethod.POST);
 }

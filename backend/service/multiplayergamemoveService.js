@@ -32,6 +32,7 @@ const createMove = async ({ id_multiplayergame, move_index, sign, who_played }) 
   return { ...move, winner };
 };
 
+
 const getLastMove = async (id_multiplayergame) => {
   if (!id_multiplayergame) throw new ValidationError('id_multiplayergame is not sent!');
 
@@ -41,6 +42,7 @@ const getLastMove = async (id_multiplayergame) => {
 
   return lastMove;
 };
+
 
 const checkWinner = async (id_multiplayergame) => {
   const moves = await getMovesByGameId(id_multiplayergame);

@@ -22,6 +22,7 @@ const MultiPlayerBoard = () => {
       setUserIdFromToken(decoded.id);
     }
   }, []);
+  
 
   useEffect(() => {
     if (!userIdFromToken) return;

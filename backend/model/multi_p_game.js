@@ -28,6 +28,7 @@ const MultiPGame = sequelize.define(
     },
   },
   {},
+  
 );
 
 module.exports = MultiPGame;
