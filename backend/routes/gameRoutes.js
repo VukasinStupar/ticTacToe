@@ -7,4 +7,5 @@ router.post('/create', authenticateToken, gameController.createGame);
 router.get('/getAllGames', authenticateToken, gameController.getAllGames);
 router.put('/:gameId', authenticateToken, gameController.updateWinner);
 
+
 module.exports = router;

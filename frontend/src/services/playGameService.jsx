@@ -14,4 +14,6 @@ export async function getGameStatus(gameId) {
 export async function resetGame(gameId) {
     return request(`${BASE_URL}/${gameId}/reset`, {}, HttpMethod.POST);
     
+    
 }
+

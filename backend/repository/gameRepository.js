@@ -12,6 +12,7 @@ const createGame = async ({ userId }) => {
     type: QueryTypes.INSERT,
   });
   return game;
+  
 };
 
 const getAllGames = async () => {

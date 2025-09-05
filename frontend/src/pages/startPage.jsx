@@ -29,6 +29,7 @@ const StartPage = () => {
       </div>
 
 
+
       <div className="flex flex-col space-y-42">
 
         <button

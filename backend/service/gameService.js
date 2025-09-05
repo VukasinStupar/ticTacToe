@@ -13,6 +13,7 @@ const GameService = {
     if (!game) throw new Error('Cannot create game'); // fallback generic error
 
     return game;
+    
   },
 
   getAllGames: async () => {

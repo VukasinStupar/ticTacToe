@@ -32,4 +32,5 @@ const Game = sequelize.define(
   },
 );
 
+
 module.exports = Game;
