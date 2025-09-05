@@ -12,3 +12,4 @@ router.post('/login', validateLogin, userController.login);
 router.get('/:id', userController.getUser);
 
 module.exports = router;
+//

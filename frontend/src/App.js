@@ -16,6 +16,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        
 
         <Route path="/getAllGames" element={<GamePage />} />
         <Route path="/createNewGame" element={<CreateNewGame />} />
@@ -32,6 +33,7 @@ function App() {
         <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 
       </Routes>
+
     </Router>
   );
 }

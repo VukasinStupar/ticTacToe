@@ -69,3 +69,4 @@ User.prototype.validPassword = async function (password) {
 };
 
 module.exports = User;
+//
