@@ -20,3 +20,4 @@ const validateRegistration = (req, res, next) => {
 };
 
 module.exports = validateRegistration;
+//
