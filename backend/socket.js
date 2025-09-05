@@ -1,52 +1,81 @@
+const { WebSocketServer } = require('ws');
+const url = require('url');
 
-let io;
+let wss;
+const connections = new Map();
+const rooms = {};
+let nextId = 1;
 
 function initSocket(server) {
-  const { Server } = require("socket.io");
+  if (wss) return wss;
 
-  if (io) return io;
+  wss = new WebSocketServer({ noServer: true });
 
-  io = new Server(server, {
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
+  server.on('upgrade', (req, socket, head) => {
+    if (req.url.startsWith('/ws')) {
+      wss.handleUpgrade(req, socket, head, (ws) =>
+        wss.emit('connection', ws, req),
+      );
+    } else {
+      socket.destroy();
     }
   });
 
-  io.on("connection", (socket) => {
-    console.log(`User ${socket.id} connected`);
+  wss.on('connection', (ws, req) => {
+    const userId =
+      new URL(req.url, `http://${req.headers.host}`).searchParams.get(
+        'userId',
+      ) || `guest_${nextId}`;
 
-    socket.on("joinGame", (gameId) => {
-      socket.join(`game_${gameId}`);
-      console.log(`User ${socket.id} joined room game_${gameId}`);
+    const id = nextId++;
+    ws.id = id;
+    ws.userId = userId;
+    connections.set(id, ws);
+
+    console.log(`User ${userId} connected with ID ${id}`);
+
+    ws.on('message', (msg) => {
+      let data;
+      try {
+        data = JSON.parse(msg);
+      } catch {
+        return;
+      }
+
+      if (data.type === 'joinGame' && data.gameId) {
+        const roomName = `game_${data.gameId}`;
+        if (!rooms[roomName]) rooms[roomName] = new Set();
+        rooms[roomName].add(id);
+        ws.room = roomName;
+        console.log(`User ${id} joined room ${roomName}`);
+      }
+
+      if (data.type === 'move' && ws.room) {
+        rooms[ws.room].forEach((memberId) => {
+          const client = connections.get(memberId);
+          if (client.readyState === 1 && client.id !== ws.id) {
+            client.send(JSON.stringify(data));
+          }
+        });
+      }
     });
 
-    socket.on("disconnect", () => {
-      console.log(`User ${socket.id} disconnected`);
+    ws.on('close', () => {
+      if (ws.room && rooms[ws.room]) {
+        rooms[ws.room].delete(id);
+        if (rooms[ws.room].size === 0) delete rooms[ws.room];
+      }
+      connections.delete(id);
+      console.log(`User ${userId} disconnected`);
     });
   });
 
-//   io.on("connection", (socket) => {
-//   console.log(`✅ User ${socket.id} connected`);
-
-//   socket.emit("welcome", "Hello from server 👋");
-
-//   socket.on("pingServer", (msg) => {
-//     console.log(`📩 Received from client: ${msg}`);
-//     socket.emit("pongClient", `Server got your message: ${msg}`);
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log(`❌ User ${socket.id} disconnected`);
-//   });
-// });
-
-  return io;
+  return wss;
 }
 
-function getIO() {
-  if (!io) throw new Error("Socket.io not initialized!");
-  return io;
+function getWSS() {
+  if (!wss) throw new Error('WS server not initialized!');
+  return wss;
 }
 
-module.exports = { initSocket, getIO };
+module.exports = { initSocket, getWSS };

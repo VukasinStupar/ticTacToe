@@ -1,20 +1,19 @@
 const jwt = require('jsonwebtoken');
 const AuthenticationError = require('../middleware/errorMiddleware');
 
-
 const JWT_CONFIG = {
   secret: process.env.JWT_SECRET || 'your_jwt_secret',
-  expiresIn: process.env.JWT_EXPIRES_IN || '7d'
+  expiresIn: process.env.JWT_EXPIRES_IN || '7d',
 };
 
 const generateToken = (user) => {
   return jwt.sign(
     {
       id: user.id,
-      username: user.username
+      username: user.username,
     },
     JWT_CONFIG.secret,
-    { expiresIn: JWT_CONFIG.expiresIn }
+    { expiresIn: JWT_CONFIG.expiresIn },
   );
 };
 
@@ -29,4 +28,4 @@ const verifyToken = (token) => {
 module.exports = {
   generateToken,
   verifyToken,
-}
+};

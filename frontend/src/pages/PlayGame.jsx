@@ -12,7 +12,6 @@ const PlayGame = ({ gameId }) => {
       try {
         setLoading(true);
         const status = await getGameStatus(gameId);
-        console.log("Initial status...", status);
 
         setBoard(status?.data?.board?.map(cell => cell ?? "") ?? new Array(9).fill(""));
         setWinner(status?.data?.winner ?? null);
@@ -34,7 +33,6 @@ const PlayGame = ({ gameId }) => {
     try {
       setLoading(true);
       const result = await handlePlayerMove(gameId, index);
-      console.log("Move result...", result);
 
       const newBoard = result?.data?.board?.map(cell => cell ?? "") ?? new Array(9).fill("");
       setBoard(newBoard);
@@ -51,7 +49,6 @@ const PlayGame = ({ gameId }) => {
     try {
       setLoading(true);
       const result = await resetGame(gameId);
-      console.log("Reset result...", result);
 
       const newBoard = result?.data?.board?.map(cell => cell ?? "") ?? new Array(9).fill("");
       setBoard(newBoard);

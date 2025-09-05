@@ -1,15 +1,15 @@
-const sequelize = require("../config/db");
-const { QueryTypes } = require("sequelize");
+const sequelize = require('../config/db');
+const { QueryTypes } = require('sequelize');
 
-const createGame = async ({ userId, typeOfPlay }) => {
+const createGame = async ({ userId }) => {
   const query = `
-    INSERT INTO "game" ("userId", "typeOfPlay", "datetime", "createdAt", "updatedAt")
-    VALUES (:userId, :typeOfPlay, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    INSERT INTO "game" ("userId", "datetime", "createdAt", "updatedAt")
+    VALUES (:userId, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     RETURNING *
   `;
   const [game] = await sequelize.query(query, {
-    replacements: { userId, typeOfPlay },
-    type: QueryTypes.INSERT
+    replacements: { userId },
+    type: QueryTypes.INSERT,
   });
   return game;
 };
@@ -24,7 +24,7 @@ const findGameById = async (gameId) => {
   const query = `SELECT * FROM "game" WHERE id = :gameId`;
   const [game] = await sequelize.query(query, {
     replacements: { gameId },
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   return game;
 };
@@ -38,7 +38,7 @@ const updateWinner = async (gameId, whoWin) => {
   `;
   const [game] = await sequelize.query(query, {
     replacements: { gameId, whoWin },
-    type: QueryTypes.UPDATE
+    type: QueryTypes.UPDATE,
   });
   return game;
 };
@@ -52,21 +52,9 @@ const joinGame = async (gameId, userId) => {
   `;
   const [game] = await sequelize.query(query, {
     replacements: { gameId, userId },
-    type: QueryTypes.UPDATE
+    type: QueryTypes.UPDATE,
   });
   return game;
-};
-
-const getOpenGames = async () => {
-  const query = `
-    SELECT *
-    FROM "game"
-    WHERE "typeOfPlay" = 'MULTI_PLAYER'
-      AND "opponentId" IS NULL
-    ORDER BY "createdAt" DESC
-  `;
-  const games = await sequelize.query(query, { type: QueryTypes.SELECT });
-  return games;
 };
 
 module.exports = {
@@ -75,5 +63,4 @@ module.exports = {
   findGameById,
   updateWinner,
   joinGame,
-  getOpenGames
 };

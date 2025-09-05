@@ -1,0 +1,94 @@
+/* multiplayerBoard.css */
+
+body {
+  background-color: #0a0a0a; /* dark background for futuristic feel */
+  font-family: 'Orbitron', sans-serif; /* sci-fi font */
+  color: #c0ffc0;
+}
+
+/* Container */
+div[style*="padding: 20px"] {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Titles and messages */
+h2 {
+  color: #7fff00;
+  text-shadow: 0 0 10px #7fff00, 0 0 20px #00ff00;
+}
+
+p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+p[style*="color: red"] {
+  color: #ff4d4d;
+  text-shadow: 0 0 5px #ff4d4d;
+}
+
+p[style*="color: green"] {
+  color: #7fff00;
+  text-shadow: 0 0 10px #7fff00;
+  font-weight: bold;
+}
+
+/* Board Grid */
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 80px);
+  gap: 8px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+/* Individual Cells */
+.board-cell {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #00ff00;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  background: #0a0a0a;
+  color: #7fff00;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px #00ff00;
+}
+
+.board-cell:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #7fff00, 0 0 40px #00ff00;
+  background: #002200;
+}
+
+.board-cell.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+/* Winner glow animation */
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 10px #7fff00;
+  }
+  50% {
+    text-shadow: 0 0 20px #00ff00, 0 0 30px #7fff00;
+  }
+  100% {
+    text-shadow: 0 0 10px #7fff00;
+  }
+}
+
+.winner {
+  animation: glow 1.5s infinite;
+  font-size: 18px;
+}

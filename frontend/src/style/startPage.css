@@ -1,26 +1,25 @@
-.start-page-container {
+/* Container styling */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg {
   background: linear-gradient(135deg, #121a24, #1a202c); 
   border-radius: 1.5rem;
   box-shadow: 0 8px 30px rgba(0, 255, 0, 0.2);
   padding: 4rem;
-  max-width: 400px;
-  margin: 0 auto;
   text-align: center;
-  color: #e2e8f0;
   font-family: 'Roboto', sans-serif;
 }
 
-h1 {
-  color: #8bc34a; 
+/* Title */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg h1 {
+  color: #8bc34a;
   font-size: 2.5rem;
   font-weight: bold;
-  text-shadow: 0 0 10px rgba(139, 195, 74, 0.7); 
+  text-shadow: 0 0 10px rgba(139, 195, 74, 0.7);
   margin-bottom: 3rem;
 }
 
-button {
-  background-color: #4caf50; 
-  color: #f7fafc;
+/* Buttons common styles */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button {
+  width: 100%;
   padding: 14px 28px;
   font-size: 1.4rem;
   font-weight: bold;
@@ -29,34 +28,70 @@ button {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
   transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  margin-bottom: 1rem;
 }
 
-button:hover {
-  background-color: #66bb6a;
+/* Space between first and second div */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg > div:nth-child(2) {
+  margin-top: 1rem; /* or 2rem if you want bigger spacing */
+}
+
+/* Hover effect */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3);
 }
 
-button:active {
+/* Active effect */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button:active {
   transform: translateY(2px);
-  background-color: #388e3c;
   box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
 }
 
+/* Register button color */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-green-500 {
+  background-color: #4caf50;
+  color: #f7fafc;
+}
+
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-green-500:hover {
+  background-color: #66bb6a;
+}
+
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-green-500:active {
+  background-color: #388e3c;
+}
+
+/* Login button color */
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-blue-500 {
+  background-color: #2196f3;
+  color: #f7fafc;
+}
+
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-blue-500:hover {
+  background-color: #42a5f5;
+}
+
+.p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button.bg-blue-500:active {
+  background-color: #1976d2;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .start-page-container {
+  .p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg {
     padding: 3rem;
     max-width: 350px;
   }
 
-  h1 {
+  .p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg h1 {
     font-size: 2rem;
   }
 
-  button {
+  .p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg button {
     padding: 12px 24px;
     font-size: 1.2rem;
+  }
+
+  .p-6.max-w-md.mx-auto.bg-gray-900.text-white.rounded-xl.shadow-lg > div:nth-child(2) {
+    margin-top: 1.5rem;
   }
 }

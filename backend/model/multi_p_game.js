@@ -1,35 +1,33 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
-const Game = sequelize.define(
-  'Game',
+const MultiPGame = sequelize.define(
+  'multiplayergame',
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    opponentId: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    datetime: {
+    date_time: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
-    typeOfPlay: {
-      type: DataTypes.STRING,
+    user1_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
+    user2_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    winner: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
-  {
-    timestamps: true,
-  },
+  {},
 );
 
-module.exports = Game;
+module.exports = MultiPGame;

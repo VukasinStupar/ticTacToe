@@ -1,5 +1,5 @@
-const sequelize = require("../config/db");
-const { QueryTypes } = require("sequelize");
+const sequelize = require('../config/db');
+const { QueryTypes } = require('sequelize');
 
 const getGameById = async (gameId) => {
   const query = `
@@ -10,7 +10,7 @@ const getGameById = async (gameId) => {
   `;
   const [game] = await sequelize.query(query, {
     replacements: { gameId },
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   return game || null;
 };
@@ -24,11 +24,17 @@ const getMovesByGameId = async (gameId) => {
   `;
   return await sequelize.query(query, {
     replacements: { gameId },
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
 };
 
-const createMove = async ({ game_id, who_played, board_index, sign, date_time }) => {
+const createMove = async ({
+  game_id,
+  who_played,
+  board_index,
+  sign,
+  date_time,
+}) => {
   const query = `
     INSERT INTO "moves" ("game_id", "who_played", "board_index", "sign", "date_time")
     VALUES (:game_id, :who_played, :board_index, :sign, :date_time)
@@ -36,7 +42,7 @@ const createMove = async ({ game_id, who_played, board_index, sign, date_time })
   `;
   const [move] = await sequelize.query(query, {
     replacements: { game_id, who_played, board_index, sign, date_time },
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   return move;
 };
@@ -50,7 +56,7 @@ const updateGameWinner = async (gameId, winner) => {
   `;
   const [game] = await sequelize.query(query, {
     replacements: { gameId, winner },
-    type: QueryTypes.SELECT
+    type: QueryTypes.SELECT,
   });
   return game;
 };
@@ -62,7 +68,7 @@ const deleteMovesByGameId = async (gameId) => {
   `;
   await sequelize.query(query, {
     replacements: { gameId },
-    type: QueryTypes.DELETE
+    type: QueryTypes.DELETE,
   });
 };
 
@@ -71,5 +77,5 @@ module.exports = {
   getMovesByGameId,
   createMove,
   updateGameWinner,
-  deleteMovesByGameId
+  deleteMovesByGameId,
 };

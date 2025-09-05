@@ -18,13 +18,18 @@ const StartPage = () => {
     <div className="p-6 max-w-md mx-auto bg-gray-900 text-white rounded-xl shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Welcome</h1>
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-41">
         <button
           onClick={handleRegisterClick}
           className="bg-green-500 hover:bg-green-600 py-3 rounded-lg font-semibold shadow-md"
         >
           Register
         </button>
+
+      </div>
+
+
+      <div className="flex flex-col space-y-42">
 
         <button
           onClick={handleLoginClick}
@@ -33,6 +38,7 @@ const StartPage = () => {
           Login
         </button>
       </div>
+
     </div>
   );
 };

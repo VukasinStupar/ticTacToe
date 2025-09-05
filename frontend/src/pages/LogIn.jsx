@@ -29,7 +29,7 @@ const Login = () => {
         
         localStorage.setItem("token", token);
 
-        navigate("/createNewGame");
+        navigate("/singleMultiP");
       } else {
         throw new Error("Invalid response format");
       }

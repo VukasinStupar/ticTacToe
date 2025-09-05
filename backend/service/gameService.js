@@ -1,45 +1,38 @@
 const gameRepository = require('../repository/gameRepository');
+const {
+  AuthenticationError,
+  ValidationError,
+  NotFoundError,
+} = require('../utils/errors'); // import custom errors
 
 const GameService = {
+  createGame: async ({ userId }) => {
+    if (!userId) throw new ValidationError('userId not found');
 
-  createGame: async ({ userId, typeOfPlay }) => {
-    try {
-      const game = await gameRepository.createGame({ userId, typeOfPlay });
-      return game;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const game = await gameRepository.createGame({ userId });
+    if (!game) throw new Error('Cannot create game'); // fallback generic error
+
+    return game;
   },
 
   getAllGames: async () => {
-    try {
-      const games = await gameRepository.getAllGames();
-      return games;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const games = await gameRepository.getAllGames();
+    if (!games || games.length === 0) throw new NotFoundError('Games not found');
+
+    return games;
   },
 
   updateWinner: async (gameId, whoWin) => {
-    try {
-      const game = await gameRepository.findGameById(gameId);
-      if (!game) throw new Error("Game not found");
+    if (!gameId || !whoWin) throw new ValidationError('gameId or whoWin not found');
 
-      const updatedGame = await gameRepository.updateWinner(gameId, whoWin);
-      return updatedGame;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const game = await gameRepository.findGameById(gameId);
+    if (!game) throw new NotFoundError('Game not found');
+
+    const updatedGame = await gameRepository.updateWinner(gameId, whoWin);
+    if (!updatedGame) throw new Error('Cannot update game'); // fallback generic error
+
+    return updatedGame;
   },
-
-  getOpenGames: async () => {
-    try {
-      const games = await gameRepository.getOpenGames();
-      return games;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
 };
 
 module.exports = GameService;
