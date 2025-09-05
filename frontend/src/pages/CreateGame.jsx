@@ -23,6 +23,7 @@ const CreateNewGame = () => {
       console.error(err);
       alert("Error creating game");
     }
+    
   };
 
   return (

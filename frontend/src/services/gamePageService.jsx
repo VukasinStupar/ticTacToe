@@ -14,6 +14,7 @@ export async function getGameById(id) {
   return request(`/game/${id}`, {}, HttpMethod.GET);
 }
 
+
 export async function getOpenGames() {
   return request(`/game/getOpenGames`, {}, HttpMethod.GET);
 }

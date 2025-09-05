@@ -13,6 +13,7 @@ const getAllGames = async (req, res) => {
     res.status(200).json({ success: true, games });
 };
 
+
 const updateWinner = async (req, res) => {
     const { gameId } = req.params;
     const { whoWin } = req.body;

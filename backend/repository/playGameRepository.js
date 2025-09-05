@@ -13,6 +13,7 @@ const getGameById = async (gameId) => {
     type: QueryTypes.SELECT,
   });
   return game || null;
+  
 };
 
 const getMovesByGameId = async (gameId) => {

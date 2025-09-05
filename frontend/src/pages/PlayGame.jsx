@@ -24,6 +24,7 @@ const PlayGame = ({ gameId }) => {
         setLoading(false);
       }
     }
+    
     fetchStatus();
   }, [gameId]);
 

@@ -42,6 +42,7 @@ const PlayGame = sequelize.define(
   {
     timestamps: false,
   },
+  
 );
 
 module.exports = PlayGame;

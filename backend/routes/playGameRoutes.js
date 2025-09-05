@@ -9,4 +9,5 @@ router.get('/:gameId', authenticateToken, playGameController.getGameState);
 
 router.post('/:gameId/reset', authenticateToken, playGameController.resetGame);
 
+
 module.exports = router;

@@ -11,6 +11,7 @@ const makeMoveUser = async (req, res) => {
       userId,
       position,
       io,
+      
     );
 
     res.status(200).json({

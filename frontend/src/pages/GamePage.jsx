@@ -23,6 +23,7 @@ const GamePage = () => {
     }
   };
 
+  
   useEffect(() => {
     fetchAllGames();
   }, []);
