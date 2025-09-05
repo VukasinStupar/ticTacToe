@@ -10,6 +10,7 @@ const authenticateToken = (req, res, next) => {
       success: false,
       message: 'Access token required',
     });
+    
   }
 
   try {

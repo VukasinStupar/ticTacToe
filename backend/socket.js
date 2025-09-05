@@ -20,6 +20,7 @@ function initSocket(server) {
     } else {
       socket.destroy();
     }
+    
   });
 
   wss.on('connection', (ws, req) => {

@@ -14,6 +14,7 @@ const validateRegistration = (req, res, next) => {
       success: false,
       message: 'Please provide a valid email address',
     });
+    
   }
 
   next();
