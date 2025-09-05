@@ -17,8 +17,10 @@ const createMove = async (req, res) => {
       move_index,
       sign,
       who_played
+      
     });
 
+    
     let winner = null;
       winner = await multiplayerGameMovesService.checkWinner(Number(id_multiplayergame));
 

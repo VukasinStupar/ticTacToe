@@ -54,6 +54,7 @@ const AllOpenGames = ({ userId }) => {
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (

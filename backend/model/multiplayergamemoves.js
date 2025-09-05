@@ -32,6 +32,7 @@ const MultiplayerGameMoves = sequelize.define(
     },
   },
   {},
+  
 );
 
 module.exports = MultiplayerGameMoves;

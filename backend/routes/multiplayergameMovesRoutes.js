@@ -8,6 +8,7 @@ router.get('/:id_multiplayergame/moves', authenticateToken, multiplayerGameMoves
 
 router.post('/:id_multiplayergame/move', authenticateToken, multiplayerGameMovesController.createMove);
 
+
 router.get('/:id_multiplayergame/last-move', authenticateToken, multiplayerGameMovesController.getLastMove);
 
 module.exports = router;

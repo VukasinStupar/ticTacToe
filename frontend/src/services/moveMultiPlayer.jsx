@@ -11,6 +11,7 @@ export async function createMove(gameId, moveData) {
   return request(`${BASE_URL}/${gameId}/move`, moveData, HttpMethod.POST);
 }
 
+
 export async function getLastMove(gameId) {
   return request(`${BASE_URL}/${gameId}/last-move`,{}, HttpMethod.GET);
 }

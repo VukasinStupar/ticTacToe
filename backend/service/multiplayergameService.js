@@ -58,6 +58,7 @@ const joinExistingGame = async (gameId, user2_id) => {
   return game;
 };
 
+
 const getOpenGames = async () => {
   const games = await multiplayerGameRepository.getOpenMultiplayergame();
   if (!games || games.length === 0)
@@ -67,6 +68,7 @@ const getOpenGames = async () => {
 
   return games;
 };
+
 
 module.exports = {
   createGame,

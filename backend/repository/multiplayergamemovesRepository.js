@@ -52,6 +52,7 @@ const getLastMove = async (id_multiplayergame) => {
       replacements: { id_multiplayergame },
       type: QueryTypes.SELECT,
     });
+    
 
     return lastMove || null;
   } catch (err) {

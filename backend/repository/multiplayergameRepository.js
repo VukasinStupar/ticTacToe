@@ -67,6 +67,7 @@ const getOpenMultiplayergame = async () => {
   return multiplayergames;
 };
 
+
 module.exports = {
   createMultiplayergame,
   getAllMultiplayergames,

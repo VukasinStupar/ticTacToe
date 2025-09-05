@@ -106,6 +106,7 @@ const MultiplayerGame = ({ userId }) => {
           movesRes.data.forEach((move) => (newBoard[move.move_index] = move.sign));
           setBoard(newBoard);
         }
+        
 
         const last = await getLastMove(id);
         if (last.success && last.data) {

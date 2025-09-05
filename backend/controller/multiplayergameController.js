@@ -98,7 +98,9 @@ const getOpenGames = async (req, res) => {
       message: 'Open games fetched successfully',
       data: games,
     });
+    
 };
+
 
 module.exports = {
   createGame,
